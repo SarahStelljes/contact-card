@@ -1,6 +1,6 @@
 // import modules
 import { toggleForm, clearForm } from './form';
-import { initdb, postDb, deleteDb  } from './database';
+import { initdb, postDb, deleteDb, editDb } from './database';
 import { fetchCards } from './cards';
 
 // Import CSS files
@@ -47,6 +47,14 @@ let profile = document.querySelector('input[type="radio"]:checked').value;
 if (submitBtnToUpdate == false) {
   postDb(name, email, phone, profile);
 } else {
+    // Obtains values passed into the form element
+    let name = document.getElementById("name").value;
+    let phone = document.getElementById("phone").value;
+    let email = document.getElementById("email").value;
+    let profile = document.querySelector('input[type="radio"]:checked').value;
+
+    // calls the editDb function
+    editDb(profileId, name, email, phone, profile);
 
   fetchCards();
     // Toggles the submit button back to POST functionality
@@ -63,9 +71,26 @@ fetchCards();
 
 window.deleteCard = (e) => {
     // grabs the id from the button element attached to the contact card
+    console.log(e.id);
     let id = parseInt(e.id);
     // delete the card
     deleteDb(id);
     // reload DOM;
     fetchCards();
+};
+
+window.editCard = (e) => {
+    profileId = parseInt(e.dataset.id);
+
+    let editName = e.dataset.name;
+    let editEmail = e.dataset.email;
+    let editPhone = e.dataset.phone;
+
+    document.getElementById("name").value = editName;
+    document.getElementById("email").value = editEmail;
+    document.getElementById("phone").value = editPhone;
+
+    form.style.display = "block";
+
+    submitBtnToUpdate = true;
 };

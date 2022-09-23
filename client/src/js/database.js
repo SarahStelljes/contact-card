@@ -1,4 +1,5 @@
 import { openDB } from 'idb';
+import { async } from 'regenerator-runtime';
 import 'regenerator-runtime/runtime';
 
 export const initdb = async () => {
@@ -8,7 +9,7 @@ export const initdb = async () => {
                 console.log('contacts store already exists');
                 return;
             }
-            db.createObjectStore('contacts', { keypath: 'id', autoIncrement: true });
+            db.createObjectStore('contacts', { keyPath: 'id', autoIncrement: true });
             console.log('contacts store created.');
         }
     })
@@ -74,4 +75,17 @@ export const deleteDb = async (id) => {
     const result = await request;
     console.log('result.value', result);
     return result?.value;
+};
+
+export const editDb = async (id, name, email, phone, profile) => {
+    const contactDb = await openDB('contact_db', 1);
+
+    const tx = contactDb.transaction('contacts', 'readwrite');
+
+    const store = tx.objectStore('contacts');
+
+    const request = store.put({ id: id, name: name, email: email, phone: phone, profile: profile});
+
+    const result = await request;
+    console.log("Data saved to the database", result);
 };
