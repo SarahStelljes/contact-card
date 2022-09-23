@@ -1,7 +1,7 @@
 // import modules
 import './form';
 import './submit';
-import { initdb } from './database';
+import { initdb, getDb, postDb } from './database';
 
 // Import CSS files
 import "../css/index.css";
@@ -18,6 +18,11 @@ import Dog from '../images/dog.png';
 // use pictures on load
 window.addEventListener('load', function(){
     initdb();
+
+    getDb();
+    postDb("NitroCoffee", "nitro.coffee@example.com", "5555555555", "Bear");
+    getDb();
+    
     document.getElementById('logo').src = Logo;
     document.getElementById('bearThumbnail').src = Bear;
     document.getElementById('dogThumbnail').src = Dog;
