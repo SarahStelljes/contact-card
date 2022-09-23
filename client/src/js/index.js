@@ -1,6 +1,6 @@
 // import modules
 import { toggleForm, clearForm } from './form';
-import { initdb, postDb } from './database';
+import { initdb, postDb, deleteDb  } from './database';
 import { fetchCards } from './cards';
 
 // Import CSS files
@@ -60,3 +60,12 @@ toggleForm();
 // Reload the DOM
 fetchCards();
 });
+
+window.deleteCard = (e) => {
+    // grabs the id from the button element attached to the contact card
+    let id = parseInt(e.id);
+    // delete the card
+    deleteDb(id);
+    // reload DOM;
+    fetchCards();
+};
