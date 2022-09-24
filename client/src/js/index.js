@@ -94,3 +94,11 @@ window.editCard = (e) => {
 
     submitBtnToUpdate = true;
 };
+
+// if statement for Service Worker
+if('serviceWorker' in navigator){
+  // keeps the page load performant
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./service-worker.js');
+  });
+}
